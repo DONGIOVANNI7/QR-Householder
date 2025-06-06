@@ -15,5 +15,9 @@ $(TARGET): $(OBJS)
 %.o: %.cpp
 	$(CXX) $(CXXFLAGS) -I$(INCDIR) -c $< -o $@
 
+run: $(TARGET)
+	@echo "Running benchmark for n=100,500,1000..."
+	@./$(TARGET) bench
+
 clean:
 	rm -f $(OBJS) $(TARGET)
