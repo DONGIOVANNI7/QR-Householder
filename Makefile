@@ -1,6 +1,6 @@
 CXX = g++
 CXXFLAGS = -std=c++11 -O3 -Wall -march=native
-TARGET = ask3_QR_HOUS
+TARGET = main
 SRCDIR = src
 INCDIR = include
 SRCS = $(SRCDIR)/matrix.cpp $(SRCDIR)/qr_householder.cpp $(SRCDIR)/error_metrics.cpp \
