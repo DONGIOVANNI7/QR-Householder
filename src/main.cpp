@@ -5,6 +5,13 @@
 #include <iostream>
 
 int main() {
+
+    if (argc > 1 && std::string(argv[1]) == "bench") {
+        Benchmark::run();
+        return 0;
+    }
+
+
     std::cout << "QR Householder Factorization\n"
               << "============================\n\n";
     
