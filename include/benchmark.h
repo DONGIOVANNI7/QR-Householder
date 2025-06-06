@@ -1,7 +1,6 @@
 #pragma once
+#include <functional>  
 #include <vector>
-#include <utility>
-#include <string>
 
 class Benchmark {
 public:
@@ -9,5 +8,5 @@ public:
     
 private:
     static void test_dimension(int n);
-    static double measure_cpu_time(std::function<void()> func);
+    static double measure_cpu_time(std::function<void()> func); 
 };

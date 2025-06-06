@@ -17,12 +17,15 @@ double Benchmark::measure_cpu_time(std::function<void()> func) {
 // Test a specific matrix dimension
 void Benchmark::test_dimension(int n) {
     Matrix A = Matrix::random(n, n);
-    Matrix Q, R;
+    
+    // Initialize matrices with proper dimensions
+    Matrix Q = Matrix::identity(n);  // Initialize as identity matrix
+    Matrix R = A;                    // Initialize as copy of A
     
     // Measure QR decomposition time
     double time = measure_cpu_time([&]() {
-        auto result = HouseholderQR::decompose(A);
-        Q = result.Q;
+        QRResult result = HouseholderQR::decompose(A);
+        Q = result.Q;  // Assign new values
         R = result.R;
     });
     
@@ -54,19 +57,6 @@ void Benchmark::run() {
         test_dimension(n);
     }
     
-    std::cout << "\nBenchmark complete. Results in LaTeX-ready format:\n\n";
+    std::cout << "\nBenchmark complete.\n\n";
     
-    // LaTeX table output
-    std::cout << "\\begin{tabular}{|c|c|c|c|c|c|}\n"
-              << "\\hline\n"
-              << "Διάσταση & Σφάλμα α & Σφάλμα β & Σφάλμα γ & Αριθμός Συνθήκης & Χρόνος (s) \\\\\n"
-              << "\\hline\n";
-    
-    for (int n : sizes) {
-        // In real code, we'd recall stored results
-        std::cout << n << " & $\\num{1.23e-10}$ & $\\num{5.67e-15}$ & $\\num{8.91e-09}$ & 123.45 & 0.123 \\\\\n";
-    }
-    
-    std::cout << "\\hline\n"
-              << "\\end{tabular}\n";
 }

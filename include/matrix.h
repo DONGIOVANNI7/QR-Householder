@@ -39,5 +39,5 @@ private:
     std::vector<double> m_data;  // Row-major contiguous storage
 
     // Helper for inverse()
-    void lu_decompose(std::vector<int>& perm, int& sign) const;
+    void lu_decompose(std::vector<int>& perm, int& sign);
 };

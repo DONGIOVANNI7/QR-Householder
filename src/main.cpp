@@ -3,15 +3,16 @@
 #include "error_metrics.h"
 #include "benchmark.h"
 #include <iostream>
+#include <string>
 
-int main() {
-
+int main(int argc, char* argv[]) {
+    // Command-line handling for benchmark
     if (argc > 1 && std::string(argv[1]) == "bench") {
         Benchmark::run();
         return 0;
     }
-
-
+    
+    // Existing menu code
     std::cout << "QR Householder Factorization\n"
               << "============================\n\n";
     
@@ -67,14 +68,14 @@ int main() {
         }
         
         // Perform QR decomposition
-        auto [Q, R] = HouseholderQR::decompose(A);
+        QRResult result = HouseholderQR::decompose(A);
         
         // Compute and display metrics
         std::cout << "\nResults:\n";
-        std::cout << "||A - QR||∞: " << ErrorMetrics::a_minus_qr(A, Q, R) << "\n";
-        std::cout << "||QᵀQ - I||∞: " << ErrorMetrics::qtq_minus_i(Q) << "\n";
-        std::cout << "||AR⁻¹ - Q||∞: " << ErrorMetrics::arinv_minus_q(A, Q, R) << "\n";
-        std::cout << "cond(R): " << ErrorMetrics::condition_number(R) << "\n";
+        std::cout << "||A - QR||∞: " << ErrorMetrics::a_minus_qr(A, result.Q, result.R) << "\n";
+        std::cout << "||QᵀQ - I||∞: " << ErrorMetrics::qtq_minus_i(result.Q) << "\n";
+        std::cout << "||AR⁻¹ - Q||∞: " << ErrorMetrics::arinv_minus_q(A, result.Q, result.R) << "\n";
+        std::cout << "cond(R): " << ErrorMetrics::condition_number(result.R) << "\n";
         
     } catch (const std::exception& e) {
         std::cerr << "Error: " << e.what() << "\n";

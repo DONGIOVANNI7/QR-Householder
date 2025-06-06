@@ -1,6 +1,7 @@
 #include "qr_householder.h"
 #include <cmath>
 #include <vector>
+#include <iostream>
 
 // Helper: Infinity norm of vector
 static double vector_norm_inf(const std::vector<double>& v) {
@@ -59,7 +60,8 @@ QRResult HouseholderQR::decompose(const Matrix& A) {
         }
     }
     
-    return {Q, R};
+    // Use constructor instead of brace initialization
+    return QRResult(Q, R);
 }
 
 void HouseholderQR::apply_householder(

@@ -1,9 +1,13 @@
 #include "matrix.h"
+#include <iostream>
+#include <sstream>
+#include <fstream>
 #include <cmath>
 #include <algorithm>
 #include <iomanip>
-
-using namespace std;
+#include <random>
+#include <stdexcept>
+#include <functional>  // For std::function in dot_product
 
 // Constructors
 Matrix::Matrix(int rows, int cols, double init_val) 
@@ -133,7 +137,7 @@ Matrix Matrix::loadFromFile(const std::string& path) {
 }
 
 // LU Decomposition helper for inverse
-void Matrix::lu_decompose(std::vector<int>& perm, int& sign) const {
+void Matrix::lu_decompose(std::vector<int>& perm, int& sign) {
     if (m_rows != m_cols)
         throw std::logic_error("LU decomposition requires square matrix");
     
@@ -156,6 +160,7 @@ void Matrix::lu_decompose(std::vector<int>& perm, int& sign) const {
 
     // Crout's algorithm
     for (int j = 0; j < n; ++j) {
+        // Compute elements of U
         for (int i = 0; i < j; ++i) {
             double sum = (*this)(i, j);
             for (int k = 0; k < i; ++k)
@@ -181,8 +186,10 @@ void Matrix::lu_decompose(std::vector<int>& perm, int& sign) const {
         
         // Swap rows if needed
         if (j != pivot_row) {
-            for (int k = 0; k < n; ++k)
-                std::swap((*this)(pivot_row, k), (*this)(j, k));
+            for (int k = 0; k < n; ++k) {
+                using std::swap;
+                swap((*this)(pivot_row, k), (*this)(j, k));
+            }
             sign = -sign;
             row_scales[pivot_row] = row_scales[j];
         }
@@ -192,7 +199,7 @@ void Matrix::lu_decompose(std::vector<int>& perm, int& sign) const {
         if (std::fabs((*this)(j, j)) < 1e-12)
             throw std::runtime_error("Matrix is singular");
             
-        // Compute elements
+        // Compute elements of L
         if (j != n-1) {
             const double denom = 1.0 / (*this)(j, j);
             for (int i = j+1; i < n; ++i)
