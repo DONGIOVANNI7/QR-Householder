@@ -7,7 +7,7 @@
 #include <iomanip>
 #include <random>
 #include <stdexcept>
-#include <functional>  // For std::function in dot_product
+#include <functional>  
 
 // Constructors
 Matrix::Matrix(int rows, int cols, double init_val) 
