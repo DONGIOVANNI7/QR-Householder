@@ -8,9 +8,7 @@ This project implements the QR factorization algorithm with Householder transfor
 ## Project Structure
 
 ### Key Files and Directories
-
-
-
+```
 QR-Householder-CPP/
 ├── data/ # Sample matrices (100x100, 500x500, 1000x1000)
 ├── include/ # Header files
@@ -135,7 +133,7 @@ make clean  # Remove executables and object files
 
 
 
--Benchmark Results
+### Benchmark Results
 
 The following results were obtained using random matrices:
 
