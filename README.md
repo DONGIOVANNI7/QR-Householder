@@ -24,7 +24,7 @@ QR-Householder-CPP/
 │ └── main.cpp
 ├── generate_matrices.cpp # Matrix generator utility
 ├── Makefile # Build configuration
-└── README.md # This documentation
+└── README.md # Documentation
 ```
 
 ### `include/` Directory (Header Files)
